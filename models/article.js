@@ -12,9 +12,10 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       this.belongsTo(models.Author, {
         foreignKey: {
-          name: 'AuthorId',
+          name: 'author_id',
           field: 'author_id',
-        }
+        },
+        as: 'author',
       })
     }
   }
@@ -46,7 +47,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE,
       allowNull: false
     },
-    author_id: DataTypes.INTEGER
+    author_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'Authors', // Reference the Authors table
+        key: 'id' // Reference the primary key of the Authors table
+      }
+    }
   }, {
     sequelize,
     modelName: 'Article',
