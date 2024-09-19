@@ -6,6 +6,9 @@ const articleAdminController = require('../controllers/admin/article')
 router.get('/', articleController.getAllArticles);
 router.get('/article/:slug', articleController.getArticleBySlug);
 
+
 router.post('/admin/article/create', articleAdminController.createArticle);
+router.all('/admin/article/edit/:id', articleAdminController.updateArticle);
+
 
 module.exports = router;
