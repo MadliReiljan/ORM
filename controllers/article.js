@@ -31,7 +31,7 @@ const getArticleBySlug = (req, res) => {
                     model: models.ArticleTag
                 }
             }
-        ],
+    ],
     })
     .then(article => {
         console.log(article)
