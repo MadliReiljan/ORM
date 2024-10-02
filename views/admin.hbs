@@ -1,0 +1,25 @@
+<h1>Admin panel</h1>
+<table>
+    <thread>
+        <tr>
+            <th>Name</th>
+            <th>Published</th>
+            <th>Actions</th>
+        </tr>
+    </thread>
+    <tbody>
+        {{#each articles}}
+        <tr>
+            <td>{{this.name}}</td>
+            <td>{{this.published}}</td>
+            <td>
+                <a href="/admin/article/edit/{{this.id}}" class="button">Edit</a>
+                <form method= "post" action="/admin/article/delete/{{this.id}}"style="display: inline;">
+                <button type="submit" class="button danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<p><a href="/admin/article/create" class="button">Create a New Article</a></p>

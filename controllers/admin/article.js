@@ -3,6 +3,28 @@ const sequelize = new Sequelize('mysql://root:qwerty@localhost:3306/joga_sequeli
 
 const models = require('../../models')
 
+const getAllArticles = (req, res) =>{
+    models.Article.findAll()
+    .then(articles => {
+        return res.status(200).render('admin', {articles});
+    })
+    .catch (error => {
+        return res.status(500).send(error.message);
+    })
+    
+}
+const getArticleById = (req, res) => {
+    
+    models.Article.findByPk(req.params.id)
+    .then(articles => {
+        return res.status(200).render('edit', {articles})
+    })
+    .catch (error => {
+        return res.status(500).send(error.message);
+    })
+    
+}
+
 const createArticle = (req, res) => {
     let name = req.body.name
     let slug = req.body.slug
@@ -58,7 +80,27 @@ const updateArticle = async (req, res) => {
     }
 };
 
+const deleteArticle = async (req, res) => {
+
+    const articleId = req.params.id
+
+    const article = await models.Article.findByPk(articleId)
+
+    await article.destroy()
+
+    .then(articles => {
+        console.log(articles)
+        return res.status(200).json({message: "Article has been deleted"});
+    })
+    .catch (error => {
+        return res.status(500).send(error.message);
+    })
+}
+
 module.exports = {
     createArticle,
-    updateArticle
+    updateArticle,
+    deleteArticle,
+    getAllArticles,
+    getArticleById
 };

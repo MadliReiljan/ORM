@@ -7,8 +7,13 @@ router.get('/', articleController.getAllArticles);
 router.get('/article/:slug', articleController.getArticleBySlug);
 
 
-router.post('/admin/article/create', articleAdminController.createArticle);
-router.all('/admin/article/edit/:id', articleAdminController.updateArticle);
+router.get('/admin', articleAdminController.getAllArticles);
+router.get('/admin/article/create', (req, res) => { res.render('create'); });
+
+router.post('/admin/article/create', (req, res) => articleAdminController.createArticle(req, res))
+router.get('/admin/article/edit/:id', articleAdminController.getArticleById);
+router.post('/admin/article/edit/:id',(req, res) => articleAdminController.updateArticle(req, res));
+router.post('/admin/article/delete/:id', (req, res) => articleAdminController.deleteArticle(req, res));
 
 
 module.exports = router;
